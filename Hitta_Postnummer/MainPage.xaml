@@ -1,0 +1,113 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Hitta_Postnummer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="grafik/bg.png" Opacity="1"></ImageBrush>
+        </Grid.Background>
+        <controls:Panorama Name="pano"  HorizontalAlignment="Left" Width="495">
+
+            <controls:Panorama.Title>
+                <TextBlock Text="Hitta Postnummer" FontSize="120" Margin="0,76,0,0"/>
+            </controls:Panorama.Title>
+            <controls:PanoramaItem Header="Välkommen">
+                <Grid>
+                    <TextBlock Height="166" HorizontalAlignment="Left" Margin="3,0,0,0" Name="textBlock2" Text="I den här appen kan du söka efter postnummer. Vänligen skriv in ett minst 3 siffror långt nummer i nästa ruta." VerticalAlignment="Top" TextWrapping="Wrap" Width="419" />
+                </Grid>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="Sök" Width="485">
+                <Grid x:Name="LayoutRoot1" Background="Transparent" Height="512" Width="459">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center">Postnummer:</TextBlock>
+                            <TextBox Name="TextBoxSearch" Width="200" Text="" InputScope="TelephoneAreaCode"/>
+                            <Button Click="Button_Click" Content="Sök"></Button>
+                        </StackPanel>
+                        
+                    </StackPanel>
+
+
+                    <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                        <StackPanel>
+                            <TextBlock Name="SearchResult" TextWrapping="Wrap"/>
+                            <!--Gör så scrollbaren är synlig-->
+                            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                                <!--ListBoxen som innehåller resultaten-->
+                                <ListBox x:Name="ListBox1" Margin="5" Width="430" Height="322" ItemsSource="{Binding}"  HorizontalContentAlignment="Right" >
+
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderThickness="0,0,0,5" BorderBrush="White">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <StackPanel Grid.Row="0"  Orientation="Horizontal">
+                                                        <TextBlock FontWeight="Bold" Text="Postnummer: "/>
+                                                        <TextBlock Text="{Binding zipcode}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Row="1"  Orientation="Horizontal">
+                                                        <TextBlock FontWeight="Bold" Text="Stad: "/>
+                                                        <TextBlock Text="{Binding address}" />
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Row="2"  Orientation="Horizontal">
+                                                        <TextBlock FontWeight="Bold" Text="Lat: "/>
+                                                        <TextBlock  Text="{Binding lat}" />
+                                                        <TextBlock FontWeight="Bold" Text=" Lang: "/>
+                                                        <TextBlock  Text="{Binding lng}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </ScrollViewer>
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </controls:PanoramaItem>
+
+
+
+            <controls:PanoramaItem Header="Credits:">
+                <StackPanel>
+                    <TextBlock Text="Skapare: Anton Gärdälv"/>
+                    <TextBlock Text="API: http://yourmoneyisnowmymoney.com/api"/>
+                </StackPanel>
+            </controls:PanoramaItem>
+        </controls:Panorama>
+    </Grid>
+
+
+
+</phone:PhoneApplicationPage>
